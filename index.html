@@ -1,0 +1,46 @@
+<html lang="en" ng-app="TestApp">
+  <head>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="bower_components/rsvp/rsvp.min.js"></script>
+    <script src="bower_components/geofire/dist/geofire.js"></script>
+  </head>
+  <body ng-controller="UserController as userCtrl">
+    <h3 ng-show="userCtrl.authData">Signed in as {{userCtrl.authData.password.email}}</h3>
+    <div ng-hide="userCtrl.authData">
+      <input type="text" ng-model="userCtrl.newEmail" placeholder="email"/>
+      <input type="password" ng-model="userCtrl.newPassword" placeholder="password"/>
+      <button ng-click="userCtrl.userSignup()">Sign up</button>
+    </div>
+    <div ng-hide="userCtrl.authData">
+      <input type="text" ng-model="userCtrl.email" placeholder="email"/>
+      <input type="password" ng-model="userCtrl.password" placeholder="password"/>
+      <button ng-click="userCtrl.userLogin()">Sign in</button>
+    </div>
+    <div ng-show="userCtrl.authData">
+      <button ng-click="userCtrl.userLogout()">Sign out</button>
+    </div>
+    <div ng-show="userCtrl.authData">
+      <div ng-controller="LocationController as locationCtrl">
+        <div>
+          Current location:<br>
+          Latitude {{locationCtrl.latitude}}<br>
+          Longitude {{locationCtrl.longitude}}
+        </div>
+        <div>
+          <input type="text" ng-model="locationCtrl.targetLat" placeholder="latitude"/>
+          <input type="text" ng-model="locationCtrl.targetLon" placeholder="longitude"/>
+          <button ng-click="locationCtrl.getDistance()">Find distance</button>
+          <span>Distance from your current location: {{locationCtrl.distanceToTarget}}</span>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/userController.js"></script>
+    <script src="js/locationController.js"></script>
+    <script src="js/databaseService.js"></script>
+  </body>
+</html>
